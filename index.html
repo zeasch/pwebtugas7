@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request file dengan Ajax</title>
+    
+    <script language="javascript">
+        var XMLHttpRequestObject = false;
+        if (window.XMLHttpRequest) {
+            XMLHttpRequestObject = new XMLHttpRequest();
+        } 
+        else if (window.ActiveXObject) {
+            XMLHttpRequestObject = new ActiveXObject("Microsoft.XMLHttp");
+        }
+
+        function getdata(url, divhasil) {
+            if (XMLHttpRequestObject) {
+                var obj = document.getElementById(divhasil);
+                XMLHttpRequestObject.open("GET", url);
+                XMLHttpRequestObject.onreadystatechange = function() {
+                    if (XMLHttpRequestObject.readyState == 4 && XMLHttpRequestObject.status == 200) {
+                        obj.innerHTML = XMLHttpRequestObject.responseText;
+                    }
+                }
+            
+                XMLHttpRequestObject.send(null);
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%);
+            align-items: center;
+            justify-content: center;
+        }
+
+        input {
+            margin-bottom: 25px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            width: 150px;
+            height: 50px;
+            padding: 10px 25px;
+            border: 2px solid #000;
+  
+            font-weight: 500;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+
+            text-align: center;
+        }
+
+        input:hover {
+            box-shadow:
+            -7px -7px 20px 0px #fff9,
+            -4px -4px 5px 0px #fff9,
+            7px 7px 20px 0px #0002,
+            4px 4px 5px 0px #0001;
+        }
+        
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Mengambil data dari file HTML</h1>
+    
+    <form>
+        <input type="button" value="Tampilkan data" onclick="getdata('tampil.html', 'divhasil')">
+    </form>
+
+    <div id="divhasil">
+        Isi dari tampil.html akan ditampilkan disini
+    </div>
+</body>
+</html>
